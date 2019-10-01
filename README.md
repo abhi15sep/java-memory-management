@@ -43,7 +43,7 @@ https://medium.com/@hoan.nguyen.it/how-did-g1gc-tuning-flags-affect-our-back-end
 ```
 ## Should be tried in production
 The above options have the following effect:
-
+```bash
 -Xms, -Xmx: Places boundaries on the heap size to increase the predictability of garbage collection. The heap size is limited in replica servers so that even Full GCs do not trigger SIP retransmissions. -Xms sets the starting size to prevent pauses caused by heap expansion.
 
 -XX:+UseG1GC: Use the Garbage First (G1) Collector.
@@ -55,3 +55,4 @@ The above options have the following effect:
 -XX:ConcGCThreads: Number of threads concurrent garbage collectors will use. The default value varies with the platform on which the JVM is running.
 
 -XX:InitiatingHeapOccupancyPercent: Percentage of the (entire) heap occupancy to start a concurrent GC cycle. GCs that trigger a concurrent GC cycle based on the occupancy of the entire heap and not just one of the generations, including G1, use this option. A value of 0 denotes 'do constant GC cycles'. The default value is 45.
+```
