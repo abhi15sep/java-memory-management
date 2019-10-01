@@ -41,3 +41,17 @@ https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/gc01/index.html
 https://medium.com/@krishankantsinghal/understanding-garbage-collection-using-visualvm-7e1520cb4ec0
 https://medium.com/@hoan.nguyen.it/how-did-g1gc-tuning-flags-affect-our-back-end-web-app-c121d38dfe56
 ```
+## Should be tried in production
+The above options have the following effect:
+
+-Xms, -Xmx: Places boundaries on the heap size to increase the predictability of garbage collection. The heap size is limited in replica servers so that even Full GCs do not trigger SIP retransmissions. -Xms sets the starting size to prevent pauses caused by heap expansion.
+
+-XX:+UseG1GC: Use the Garbage First (G1) Collector.
+
+-XX:MaxGCPauseMillis: Sets a target for the maximum GC pause time. This is a soft goal, and the JVM will make its best effort to achieve it.
+
+-XX:ParallelGCThreads: Sets the number of threads used during parallel phases of the garbage collectors. The default value varies with the platform on which the JVM is running.
+
+-XX:ConcGCThreads: Number of threads concurrent garbage collectors will use. The default value varies with the platform on which the JVM is running.
+
+-XX:InitiatingHeapOccupancyPercent: Percentage of the (entire) heap occupancy to start a concurrent GC cycle. GCs that trigger a concurrent GC cycle based on the occupancy of the entire heap and not just one of the generations, including G1, use this option. A value of 0 denotes 'do constant GC cycles'. The default value is 45.
